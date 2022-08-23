@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
+const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const Employee = require('./lib/Employee');
 const Intern = require('./lib/Intern');
 const generateHtml = require("./util/generateHtml");
 const fs = require('fs');
@@ -30,11 +30,11 @@ const genManager = () => {
             message: "Manager's Office Number'?",
             name: 'office'
         },
-    ]).then(ans=> {
+    ]).then((ans=> {
         let manager = new Manager(ans.name, ans.id, ans.email, ans.office)
         team.push(manager)
         genTeam()
-    })
+    }))
 }
 
 const genTeam = () => {
@@ -45,7 +45,7 @@ const genTeam = () => {
             choices: ["Engineer", "Intern", "Finish File"],
             name: 'role',
         }
-    ]).then(ans => {
+    ]).then((ans => {
         if(ans.role === 'Engineer') {
            console.log("Loading Engineer Program");
            genEngineer();
@@ -53,10 +53,10 @@ const genTeam = () => {
            console.log("Loading Intern Program");
            genIntern();
        }else {
-           console.log("All employees have been added!")
+           console.log("File Generating, Thank You for Using this App!")
            genFile();
        }
-   })
+   }))
 }
 
 const genEngineer = () => {
@@ -81,7 +81,7 @@ const genEngineer = () => {
             message: "Engineer's GitHub?",
             name: 'github'
         }
-    ]).then(ans) (ans=> {
+    ]).then(ans=> {
         let engineer = new Engineer (ans.name, ans.id, ans.email, ans.github)
         team.push(engineer)
         genTeam()
@@ -110,9 +110,9 @@ const genIntern = () => {
             message: "Interns's School?",
             name: 'school'
         }
-    ]).then(ans) (ans=> {
-        let engineer = new Engineer (ans.name, ans.id, ans.email, ans.school)
-        team.push(Intern)
+    ]).then(ans=> {
+        let intern = new Intern (ans.name, ans.id, ans.email, ans.school)
+        team.push(intern)
         genTeam()
     })
 }
@@ -124,4 +124,4 @@ const genFile = () => {
         }
     })
 }
-genManager
+genManager();
